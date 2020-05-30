@@ -1,14 +1,17 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// import './App.css';
 import Toast from './Components/Toast/index';
+import Cols02 from './Components/Cols02/index';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Toast />
       </header>
+      <body>
+        <Cols02 />
+        <Toast />
+      </body>
     </div>
   );
 }
