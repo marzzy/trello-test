@@ -6,19 +6,30 @@ import Button from '@material-ui/core/Button';
 import TodoCard from '../TodoCard';
 import { AddTodoAction } from '../../redux/actions';
 
-function Col({ colName, cardsId }) {
+function Col({ colId, colName, cardsId, colDispatch }) {
     const dispatch = useDispatch();
 
     function addNewCard() {
-        console.log('salam');
         dispatch(AddTodoAction('title', 'description'));
+    }
+
+    function removeCol() {
+        colDispatch({ type: 'deleteCol', colId })
     }
 
     return (
         <Grid container direction="column" justify="center" alignItems="stretch" >
-            <Typography variant="subtitle1" gutterBottom>
-                Col Name: {colName}
-            </Typography>
+            <Grid container
+                direction="row"
+                justify="space-between"
+                alignItems="center">
+                <Typography variant="subtitle1" gutterBottom>
+                    Col Name: {colName}
+                </Typography>
+                <Button variant="contained" color="secondary" onClick={removeCol}>
+                    remove col
+                </Button>
+            </Grid>    
             {cardsId.map(cardId => (
                 <TodoCard cardId={cardId} key={cardId} />
             ))}

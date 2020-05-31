@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import Typography from '@material-ui/core/Typography';
 import UneditableCard from './UneditableCard'; 
 import EditableCard from './EditableCard'; 
 
