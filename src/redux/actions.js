@@ -1,10 +1,11 @@
-let todoId = 0
+let todoId = 100;
 
-export const AddTodoAction = (text) => ({
+export const AddTodoAction = (title, description) => ({
   type: 'ADD_TODO',
   payload: {
     todoId: ++todoId,
-    text
+    title,
+    description
   }
 });
 
@@ -15,26 +16,16 @@ export const RemoveTodoAcion = (todoId) => ({
   }
 });
 
-export const SetPriorityAction = (todoId,priorityLevel) => ({
-  type: 'SET_PRIORITY',
+export const EditTodoAcion = (todoId, title, description) => ({
+  type: 'EDIT_TODO',
   payload: {
     todoId,
-    priorityLevel
+    title,
+    description
   }
 });
 
-export const SetVisibilityFilter = (filter) => ({
-  type: 'SET_FILTER',
-  payload: {
-    filter
-  }
-});
-
-export const Incrimentcounter = () => ({
-  type: 'INCREMENT'
-});
-
-export const FetchData = (data) => ({
-  type: 'FETCH_ME',
+export const FetchInitialData = (data) => ({
+  type: 'FETCH_SUCCEEDED',
   data
 });

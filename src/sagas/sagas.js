@@ -1,35 +1,29 @@
-import { put , takeEvery, takeLatest , all } from 'redux-saga/effects';
-import { Incrimentcounter } from '../redux/actions';
-// import { FetchData } from '../redux/actions';
+import { put, takeLatest, all } from 'redux-saga/effects';
+import { FetchInitialData } from '../redux/actions';
 
-
-function* AddCounter() {
-  console.log('hiiiiiiiiiiiiiiiiiiiiiiiii');
-  yield put(Incrimentcounter);
+function* watchFetchInitial() {
+  yield takeLatest('FETCH_INITIAL_DATA', initFech);
 }
 
-function* FechFunc() {
-  const data = yield fetch(
-    // 'https://api.github.com/search/repositories?q=tetris+language:javascript&sort=stars&order=desc'
-    'https://samples.openweathermap.org/data/2.5/forecast/daily?id=524901&appid=b1b15e88fa797225412429c1c50c122a1'
+function* initFech() {
+  try {
+    const data = yield fetch(
+      'https://jsonplaceholder.typicode.com/todos'
     ).then(
-      res => res.json());
-  yield put({
-    type: "FETCH_ME",
-    data
-  });
-}
+      res => res.json()
+    ).then(
+      res => res.filter(item => item.id <= 10)
+    );
 
-function* watchFetch() {
-  yield takeLatest('FETCH_ME',FechFunc);
-}
-function* watchIncrementAsync() {
-  yield takeEvery('INCREMENT_ASYNC', AddCounter);
+    yield put(FetchInitialData(data));
+  } catch (e) {
+    // yield put({ type: "FETCH_FAILED", message: e });
+    console.log('err :D ', e);
+  }
 }
 
 export default function* rootSaga() {
-  yield all(
-    watchIncrementAsync(),
-    watchFetch()
-  )
+  yield all([
+    watchFetchInitial()
+  ])
 }

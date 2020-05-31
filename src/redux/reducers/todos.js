@@ -1,13 +1,13 @@
 export default function (state = [] ,action) {
   switch (action.type) {
     case 'ADD_TODO': {
-      const { todoId, text } = action.payload;
+      const { todoId, title, description } = action.payload;
 
       return state.concat(
         {
           key: todoId,
-          text: text,
-          prtiority: 'no-priority'
+          title,
+          description,
         }
       )
     }
@@ -16,21 +16,32 @@ export default function (state = [] ,action) {
 
       return state.filter(item => item.key !== todoId)
     }
-    case 'SET_PRIORITY': {
-      const { todoId, priorityLevel } = action.payload;
-      
-      return state.map(item => {
-        if (item.key === todoId) {
-          return {
-            ...item,
-            prtiority: priorityLevel
-          }
-        } else {
-          return item
-        }
-      })
+    case 'EDIT_TODO': {
+      const { todoId, title, description } = action.payload;
+      const itemIndex = state.findIndex(item => item.key === todoId);
+
+      return [
+        ...state.slice(0, itemIndex),
+        { key: todoId, title, description},
+        ...state.slice(itemIndex)
+      ]
     }
+    case 'FETCH_SUCCEEDED': {
+      const normalizedData = normalizeData(action.data);
+      return normalizedData;
+    }
+
     default:
       return state;
   }
+}
+
+function normalizeData(data) {
+  return data.map(dataItem => {
+    return {
+      key: dataItem.id,
+      title: dataItem.title,
+      description: dataItem.description || ''
+    }
+  })
 }
