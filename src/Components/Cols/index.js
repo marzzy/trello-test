@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import TodoCard from '../TodoCard';
+import Col from '../Col';
 
 const ColsData=[
     { key: '123', name: 'todo', cardsId: [1, 5, 8] },
@@ -34,28 +34,18 @@ export default function SpacingGrid() {
     useEffect(() => {
         dispatch({ type: 'FETCH_INITIAL_DATA' });
     }, [dispatch]);
-
+    
     function handleClick() {
         console.log('hiiiiiiiiii')
     }
-
+    
     return (
         <Grid item xs={12} className={classes.root}>
             <Grid container justify="center" spacing={2}>
                 {ColsData.map((value) => (
                     <Grid key={value} item>
                         <Paper className={classes.paper} >
-                            <Grid container direction="column" justify="center" alignItems="stretch" >
-                                <Typography variant="subtitle1" gutterBottom>
-                                    Col Name: {value.name}
-                                </Typography>
-                                {value.cardsId.map(cardId => (
-                                    <TodoCard cardId={cardId} key={cardId} />
-                                ))}
-                                <Button variant="contained" color="primary" onClick={handleClick}>
-                                    Add new card
-                                </Button>
-                            </Grid>
+                            <Col cardsId={value.cardsId} colName={value.name} />
                         </Paper>
                     </Grid>
                 ))}

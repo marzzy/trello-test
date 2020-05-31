@@ -21,11 +21,7 @@ function TodoCard({cardId}) {
             />
         )
     }
-    return (
-        <Typography variant="subtitle3" gutterBottom>
-            Loading ...
-        </Typography>
-    )
+    return null
 }
 
 export default TodoCard;

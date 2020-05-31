@@ -9,7 +9,6 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
 function EditableCard({ todoId, title, description, setIsEditableValue }) {
-
     const dispatch = useDispatch();
     const [titleValue, setTitle] = React.useState(title);
     const [descriptionValue, setDescription] = React.useState(description);
