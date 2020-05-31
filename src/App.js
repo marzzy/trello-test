@@ -1,7 +1,7 @@
 import React from 'react';
 // import './App.css';
 import Toast from './Components/Toast/index';
-import Cols02 from './Components/Cols02/index';
+import Cols from './Components/Cols/index';
 
 function App() {
   return (
@@ -9,7 +9,7 @@ function App() {
       <header className="App-header">
       </header>
       <body>
-        <Cols02 />
+        <Cols />
         <Toast />
       </body>
     </div>
