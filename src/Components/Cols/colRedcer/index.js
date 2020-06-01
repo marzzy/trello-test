@@ -16,12 +16,11 @@ function getInitVal() {
 function reducer(state, action) {
     switch (action.type) {
         case 'createNewCol':
-            return createCol();
+            return createCol(state, action);
         case 'deleteCol':
-            return deleteCol();
-
+            return deleteCol(state, action);
         case 'updateColCardsId':
-            return updateColCardsId();
+            return updateColCardsId(state, action);
         default:
             return state;
     }
