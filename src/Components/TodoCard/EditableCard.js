@@ -67,7 +67,7 @@ function EditableCard({ todoId, title, description, setIsEditableValue }) {
                     <Button size="small" color="primary" onClick={updateTodo}>
                         Submit
                     </Button>
-                    <Button size="small" color="primary" onClick={discardChanges}>
+                    <Button size="small" color="secondary" onClick={discardChanges}>
                         Discard
                     </Button>
                 </CardActions>

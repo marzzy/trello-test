@@ -26,7 +26,7 @@ export default function SpacingGrid() {
     const classes = useStyles();
     const [colState, dispatch] = useReducer(reducer, initVal);
     const reduxDispatch = useDispatch();
-
+    
     useEffect(() => {
         reduxDispatch({ type: 'FETCH_INITIAL_DATA' });
     }, [reduxDispatch]);

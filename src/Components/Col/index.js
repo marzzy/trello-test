@@ -10,11 +10,14 @@ function Col({ colId, colName, cardsId, colDispatch }) {
     const dispatch = useDispatch();
 
     function addNewCard() {
-        dispatch(AddTodoAction('title', 'description'));
+        const newCardId = (new Date()).getTime();
+
+        colDispatch({ type: 'updateColCardsId', newCardId, colId})
+        dispatch(AddTodoAction(newCardId, 'new card', 'card description'));
     }
 
     function removeCol() {
-        colDispatch({ type: 'deleteCol', colId })
+        colDispatch({ type: 'deleteCol', colId });
     }
 
     return (

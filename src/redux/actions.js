@@ -1,9 +1,7 @@
-let todoId = 100;
-
-export const AddTodoAction = (title, description) => ({
+export const AddTodoAction = (todoId, title, description) => ({
   type: 'ADD_TODO',
   payload: {
-    todoId: ++todoId,
+    todoId,
     title,
     description
   }

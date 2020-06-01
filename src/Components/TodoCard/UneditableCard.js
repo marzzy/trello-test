@@ -38,7 +38,7 @@ function UneditableCard({ todoId, title, description, setIsEditableValue }) {
                     <Button size="small" color="primary" onClick={editCard} >
                         edit
                     </Button>
-                    <Button size="small" color="primary" onClick={deleteCard} >
+                    <Button size="small" color="secondary" onClick={deleteCard} >
                         delete
                     </Button>
                 </CardActions>

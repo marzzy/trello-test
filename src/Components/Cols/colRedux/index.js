@@ -32,6 +32,17 @@ function reducer(state, action) {
                 },
                 ...state.filter((item) => (![111, action.colId].includes(item.colId))),
             ];
+        case 'updateColCardsId':
+            const selectedCol = state.find(item => item.colId === action.colId);
+            const selectedColIndex = state.findIndex(item => item.colId === action.colId);
+            const newSelectedColCardsId = [...selectedCol.cardsId, action.newCardId];
+            const updatedCol = { ...state.find(item => item.colId === action.colId), cardsId: newSelectedColCardsId};
+
+            return [
+                ...state.slice(0, selectedColIndex),
+                updatedCol,
+                ...state.slice(selectedColIndex+1)
+            ];
         default:
             return state;
     }
