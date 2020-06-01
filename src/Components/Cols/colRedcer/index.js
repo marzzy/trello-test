@@ -1,4 +1,4 @@
-import { createCol, deleteCol, updateColCardsId } from './helper';
+import { createCol, deleteCol, increaseColCardsId, decreaseColCardsId } from './helper';
 
 function getInitVal() {
     const localColDataBased = localStorage.getItem('colData');
@@ -19,8 +19,10 @@ function reducer(state, action) {
             return createCol(state, action);
         case 'deleteCol':
             return deleteCol(state, action);
-        case 'updateColCardsId':
-            return updateColCardsId(state, action);
+        case 'increaseColCardsId':
+            return increaseColCardsId(state, action);
+        case 'decreaseColCardsId':
+            return decreaseColCardsId(state, action);
         default:
             return state;
     }

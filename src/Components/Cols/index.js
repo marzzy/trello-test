@@ -1,57 +1,43 @@
 import React, { useEffect, useReducer } from 'react';
 import { useDispatch } from 'react-redux';
-import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { reducer, getInitVal } from './colRedcer';
 import PresentCol from './PresentCol'; 
 import NewCol from './NewCol';
-
-const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-    },
-    paper: {
-        minHeight: 300,
-        width: 400,
-        backgroundColor: theme.palette.grey[100]
-    },
-    control: {
-        padding: theme.spacing(2),
-    },
-}));
+import useStyles from './index.style';
+import ColContext from './ColContext';
 
 export default function SpacingGrid() {
     const classes = useStyles();
-    const [colState, dispatch] = useReducer(reducer, getInitVal());
+    const [colState, colDispatch] = useReducer(reducer, getInitVal());
     const reduxDispatch = useDispatch();
     
     useEffect(() => {
         reduxDispatch({ type: 'FETCH_INITIAL_DATA' });
     }, [reduxDispatch]);
-    
+
     return (
         <Grid item xs={12} className={classes.root}>
             <Grid container justify="center" spacing={2}>
-                {colState.map((value) => (
-                    <Grid key={value.colId} item>
+                <ColContext.Provider value={{ colsData: colState, colDispatch}}>
+                    {colState.map((value) => (
+                        <Grid key={value.colId} item>
+                            <Paper className={classes.paper} >
+                                <PresentCol
+                                    colId={value.colId}
+                                    cardsId={value.cardsId}
+                                    colName={value.colName}
+                                />
+                            </Paper>
+                        </Grid>
+                    ))}
+                    <Grid item justify="center">
                         <Paper className={classes.paper} >
-                            <PresentCol
-                                colId={value.colId}
-                                cardsId={value.cardsId}
-                                colName={value.colName}
-                                colDispatch={dispatch}
-                            />
+                            <NewCol />
                         </Paper>
                     </Grid>
-                ))}
-                <Grid item justify="center">
-                    <Paper className={classes.paper} >
-                        <NewCol
-                            colDispatch={dispatch}
-                        />
-                    </Paper>
-                </Grid>
+                </ColContext.Provider>
             </Grid>
         </Grid>
     );

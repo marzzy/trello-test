@@ -6,15 +6,17 @@ import Button from '@material-ui/core/Button';
 import TodoCard from '../TodoCard';
 import { AddTodoAction } from '../../redux/actions';
 import ToastContext from '../../Context';
+import ColContext from './ColContext';
 
-function PresentCol({ colId, colName, cardsId, colDispatch }) {
+function PresentCol({ colId, colName, cardsId }) {
     const dispatch = useDispatch();
     const { setMsgContext } = useContext(ToastContext);
+    const { colDispatch } = useContext(ColContext);
 
     function addNewCard() {
         const newCardId = (new Date()).getTime();
 
-        colDispatch({ type: 'updateColCardsId', newCardId, colId});
+        colDispatch({ type: 'increaseColCardsId', cardId: newCardId, colId });
         dispatch(AddTodoAction(newCardId, 'new card', 'card description'));
         setMsgContext('a new card was successfully added', (new Date()).getTime()); 
     }
@@ -40,7 +42,7 @@ function PresentCol({ colId, colName, cardsId, colDispatch }) {
                 }
             </Grid>    
             {cardsId.map(cardId => (
-                <TodoCard cardId={cardId} key={cardId} />
+                <TodoCard cardId={cardId} key={cardId} colId={colId} />
             ))}
             <Button variant="contained" color="primary" onClick={addNewCard}>
                 Add new card

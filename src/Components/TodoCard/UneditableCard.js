@@ -8,16 +8,19 @@ import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import ToastContext from '../../Context';
+import ColContext from '../Cols/ColContext';
 
-function UneditableCard({ todoId, title, description, setIsEditableValue }) {
+function UneditableCard({ todoId, title, description, setIsEditableValue, colId }) {
     const dispatch = useDispatch();
     const { setMsgContext } = useContext(ToastContext);
+    const { colDispatch } = useContext(ColContext);
 
     function editCard() {
         setIsEditableValue(true);
     }
 
     function deleteCard() {
+        colDispatch({ type: 'decreaseColCardsId', todoId, colId });
         dispatch(RemoveTodoAcion(todoId));
         setMsgContext(`card with id of ${todoId} was successfully deleted`, (new Date()).getTime()); 
     }

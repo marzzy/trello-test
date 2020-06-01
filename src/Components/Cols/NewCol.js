@@ -3,10 +3,12 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import ToastContext from '../../Context';
+import ColContext from './ColContext';
 
-function NewCol({ colDispatch }) {
+function NewCol() {
     const [colName, setColName] = useState('new col');
     const { setMsgContext } = useContext(ToastContext);
+    const { colDispatch } = useContext(ColContext);
 
     function addNewCol() {
         colDispatch({ type: 'createNewCol', colName });

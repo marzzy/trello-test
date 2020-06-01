@@ -32,10 +32,10 @@ function deleteCol(state, action) {
     return newState;
 }
 
-function updateColCardsId(state, action) {
+function increaseColCardsId(state, action) {
     const selectedCol = state.find(item => item.colId === action.colId);
     const selectedColIndex = state.findIndex(item => item.colId === action.colId);
-    const newSelectedColCardsId = [...selectedCol.cardsId, action.newCardId];
+    const newSelectedColCardsId = [...selectedCol.cardsId, action.todoId];
     const updatedCol = { ...state.find(item => item.colId === action.colId), cardsId: newSelectedColCardsId };
     const newState = [
         ...state.slice(0, selectedColIndex),
@@ -47,11 +47,24 @@ function updateColCardsId(state, action) {
     return newState;
 }
 
-// function updateColCardsId(state, action)
+function decreaseColCardsId(state, action) {
+    const selectedCol = state.find(item => item.colId === action.colId);
+    const newSelectedColCardsId = selectedCol.cardsId.filter(cardId => cardId !== action.todoId);
+    const updatedCol = { ...state.find(item => item.colId === action.colId), cardsId: newSelectedColCardsId };
+    const selectedColIndex = state.findIndex(item => item.colId === action.colId);
+    const newState = [
+        ...state.slice(0, selectedColIndex),
+        updatedCol,
+        ...state.slice(selectedColIndex + 1)
+    ];
 
+    localStorage.setItem('colData', JSON.stringify(newState));
+    return newState;
+}
 
 export {
     createCol,
     deleteCol,
-    updateColCardsId
+    increaseColCardsId,
+    decreaseColCardsId,
 }

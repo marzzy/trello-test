@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import UneditableCard from './UneditableCard'; 
 import EditableCard from './EditableCard'; 
 
-function TodoCard({cardId}) {
+function TodoCard({ cardId, colId }) {
     const cardData = useSelector(state => state.todos.find(item => item.key === cardId));
     const [isEditable, setIsEditableValue] = useState(false);
     const Component = isEditable ? EditableCard : UneditableCard;
@@ -16,6 +16,7 @@ function TodoCard({cardId}) {
                 todoId={key}
                 title={title}
                 description={description}
+                colId={colId}
                 setIsEditableValue={setIsEditableValue}
             />
         )
