@@ -1,23 +1,27 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import TodoCard from '../TodoCard';
 import { AddTodoAction } from '../../redux/actions';
+import ToastContext from '../../Context';
 
-function Col({ colId, colName, cardsId, colDispatch }) {
+function PresentCol({ colId, colName, cardsId, colDispatch }) {
     const dispatch = useDispatch();
+    const { setMsgContext } = useContext(ToastContext);
 
     function addNewCard() {
         const newCardId = (new Date()).getTime();
 
-        colDispatch({ type: 'updateColCardsId', newCardId, colId})
+        colDispatch({ type: 'updateColCardsId', newCardId, colId});
         dispatch(AddTodoAction(newCardId, 'new card', 'card description'));
+        setMsgContext('a new card was successfully added', (new Date()).getTime()); 
     }
 
     function removeCol() {
         colDispatch({ type: 'deleteCol', colId });
+        setMsgContext(`col with name of ${colName} and id ${colId} was successfully deleted`, (new Date()).getTime());
     }
 
     return (
@@ -29,9 +33,11 @@ function Col({ colId, colName, cardsId, colDispatch }) {
                 <Typography variant="subtitle1" gutterBottom>
                     Col Name: {colName}
                 </Typography>
-                <Button variant="contained" color="secondary" onClick={removeCol}>
-                    remove col
-                </Button>
+                {colId !== 111 &&
+                    <Button variant="contained" color="secondary" onClick={removeCol}>
+                        remove col
+                    </Button>
+                }
             </Grid>    
             {cardsId.map(cardId => (
                 <TodoCard cardId={cardId} key={cardId} />
@@ -43,4 +49,4 @@ function Col({ colId, colName, cardsId, colDispatch }) {
    ) 
 }
 
-export default Col;
+export default PresentCol;

@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { reducer, initVal } from './colRedux';
-import Col from '../Col'; 
+import PresentCol from './PresentCol'; 
 import NewCol from './NewCol';
 
 
@@ -37,7 +37,7 @@ export default function SpacingGrid() {
                 {colState.map((value) => (
                     <Grid key={value.colId} item>
                         <Paper className={classes.paper} >
-                            <Col
+                            <PresentCol
                                 colId={value.colId}
                                 cardsId={value.cardsId}
                                 colName={value.colName}

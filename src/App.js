@@ -1,18 +1,29 @@
-import React from 'react';
-// import './App.css';
-import Toast from './Components/Toast/index';
-import Cols from './Components/Cols/index';
+import React, { useState } from 'react';
+import Toast from './Components/Toast';
+import Cols from './Components/Cols';
+import ToastContext from './Context';
 
 function App() {
+  const [msg, setMsg] = useState('');
+  const [toastId, setToastId] = useState(null);
+
+  function setMsgContext(enteredMsg, id) {
+    setMsg(enteredMsg);
+    setToastId(id);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
+    <ToastContext.Provider value={{ msg, setMsgContext}}>
+      <header>
+        hiiiiiiiiiiiii, this is your trello
       </header>
       <body>
         <Cols />
-        <Toast />
+        {msg &&
+          <Toast msg={msg} key={toastId} />
+        }
       </body>
-    </div>
+    </ToastContext.Provider>
   );
 }
 

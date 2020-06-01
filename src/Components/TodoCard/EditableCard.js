@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import { EditTodoAcion } from '../../redux/actions';
 import Card from '@material-ui/core/Card';
@@ -7,9 +7,11 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import ToastContext from '../../Context';
 
 function EditableCard({ todoId, title, description, setIsEditableValue }) {
     const dispatch = useDispatch();
+    const { setMsgContext } = useContext(ToastContext);
     const [titleValue, setTitle] = React.useState(title);
     const [descriptionValue, setDescription] = React.useState(description);
 
@@ -27,6 +29,7 @@ function EditableCard({ todoId, title, description, setIsEditableValue }) {
 
     function updateTodo() {
         dispatch(EditTodoAcion(todoId, titleValue, descriptionValue));
+        setMsgContext(`card with id of ${todoId} was successfully edited`, (new Date()).getTime()); 
         setIsEditableValue(false);
     }
     

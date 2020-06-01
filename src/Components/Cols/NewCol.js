@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import ToastContext from '../../Context';
 
 function NewCol({ colDispatch }) {
     const [colName, setColName] = useState('new col');
+    const { setMsgContext } = useContext(ToastContext);
 
     function addNewCol() {
-        colDispatch({ type: 'createNewCol', colName })
+        colDispatch({ type: 'createNewCol', colName });
+        setMsgContext('a new col successfully added', (new Date()).getTime());
     }
 
     function handleChange(event) {
