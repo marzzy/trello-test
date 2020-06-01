@@ -2,33 +2,46 @@ export default function (state = [] ,action) {
   switch (action.type) {
     case 'ADD_TODO': {
       const { todoId, title, description } = action.payload;
-
-      return state.concat(
+      const newState = [
+        ...state,
         {
           key: todoId,
           title,
           description,
-        }
-      )
+        }];
+
+      localStorage.setItem('cardData', JSON.stringify(newState));
+      return newState;
     }
+
     case 'REMOVE_TODO': {
       const { todoId } = action.payload;
+      const newState = state.filter(item => item.key !== todoId);
 
-      return state.filter(item => item.key !== todoId)
+      localStorage.setItem('cardData', JSON.stringify(newState));
+      return newState;
     }
+
     case 'EDIT_TODO': {
       const { todoId, title, description } = action.payload;
       const itemIndex = state.findIndex(item => item.key === todoId);
-
-      return [
+      const newState = [
         ...state.slice(0, itemIndex),
-        { key: todoId, title, description},
+        { key: todoId, title, description },
         ...state.slice(itemIndex)
       ]
+
+      localStorage.setItem('cardData', JSON.stringify(newState));
+      return newState;
     }
+
     case 'FETCH_SUCCEEDED': {
-      const normalizedData = normalizeData(action.data);
-      return normalizedData;
+      const localCardDataBased = localStorage.getItem('cardData');
+
+      if (localCardDataBased) {
+        return JSON.parse(localCardDataBased);
+      }
+      return normalizeData(action.data);
     }
 
     default:

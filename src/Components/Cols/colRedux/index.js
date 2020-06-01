@@ -1,14 +1,20 @@
+function getInitVal() {
+    const localColDataBased = localStorage.getItem('colData');
 
-const initVal = [
-    { colId: 111, colName: 'todo', cardsId: [1, 5, 8] },
-    { colId: 222, colName: 'doing', cardsId: [2, 3, 4] },
-    { colId: 333, colName: 'done', cardsId: [6, 7, 9] }
-];
+    if (localColDataBased){
+        return JSON.parse(localColDataBased);
+    }
+    return [
+        { colId: 111, colName: 'todo', cardsId: [1, 5, 8] },
+        { colId: 222, colName: 'doing', cardsId: [2, 3, 4] },
+        { colId: 333, colName: 'done', cardsId: [6, 7, 9] }
+    ];
+}
 
 function reducer(state, action) {
     switch (action.type) {
-        case 'createNewCol':
-            return [
+        case 'createNewCol': {
+            const newState = [
                 ...state,
                 {
                     colId: (new Date()).getTime(),
@@ -16,15 +22,18 @@ function reducer(state, action) {
                     cardsId: []
                 }
             ];
-        case 'deleteCol':
+
+            localStorage.setItem('colData', JSON.stringify(newState));
+            return newState;
+        }
+        case 'deleteCol': {
             if (action.colId === 111) {
                 return state;
             }
             const defaultCol = state.find(item => item.colId === 111);
             const selecttedCol = state.find(item => item.colId === action.colId);
             const newDefaultCardsId = defaultCol.cardsId.concat(selecttedCol.cardsId);
-
-            return [
+            const newState = [
                 {
                     colId: 111,
                     colName: 'todo',
@@ -32,17 +41,24 @@ function reducer(state, action) {
                 },
                 ...state.filter((item) => (![111, action.colId].includes(item.colId))),
             ];
-        case 'updateColCardsId':
+
+            localStorage.setItem('colData', JSON.stringify(newState));
+            return newState;
+        }
+        case 'updateColCardsId': {
             const selectedCol = state.find(item => item.colId === action.colId);
             const selectedColIndex = state.findIndex(item => item.colId === action.colId);
             const newSelectedColCardsId = [...selectedCol.cardsId, action.newCardId];
             const updatedCol = { ...state.find(item => item.colId === action.colId), cardsId: newSelectedColCardsId};
-
-            return [
+            const newState = [
                 ...state.slice(0, selectedColIndex),
                 updatedCol,
                 ...state.slice(selectedColIndex+1)
             ];
+
+            localStorage.setItem('colData', JSON.stringify(newState));
+            return newState;
+        }
         default:
             return state;
     }
@@ -50,5 +66,5 @@ function reducer(state, action) {
 
 export {
     reducer,
-    initVal
+    getInitVal
 }

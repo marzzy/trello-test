@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import { reducer, initVal } from './colRedux';
+import { reducer, getInitVal } from './colRedux';
 import PresentCol from './PresentCol'; 
 import NewCol from './NewCol';
 
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SpacingGrid() {
     const classes = useStyles();
-    const [colState, dispatch] = useReducer(reducer, initVal);
+    const [colState, dispatch] = useReducer(reducer, getInitVal());
     const reduxDispatch = useDispatch();
     
     useEffect(() => {
