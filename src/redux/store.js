@@ -6,7 +6,7 @@ import rootSaga from '../sagas/sagas'
 const sagaMiddleware = createSagaMiddleware();
 
 // composeEnhancers place here for showing the details of changes on
-// mozila redux tab
+// browser redux tab
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ; 
 
 export default createStore(

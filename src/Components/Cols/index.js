@@ -3,10 +3,9 @@ import { useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import { reducer, getInitVal } from './colRedux';
+import { reducer, getInitVal } from './colRedcer';
 import PresentCol from './PresentCol'; 
 import NewCol from './NewCol';
-
 
 const useStyles = makeStyles((theme) => ({
     root: {

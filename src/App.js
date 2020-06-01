@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Typography from '@material-ui/core/Typography';
 import Toast from './Components/Toast';
 import Cols from './Components/Cols';
 import ToastContext from './Context';
@@ -15,7 +16,9 @@ function App() {
   return (
     <ToastContext.Provider value={{ msg, setMsgContext}}>
       <header>
-        hiiiiiiiiiiiii, this is your trello
+        <Typography gutterBottom variant="h1" component="h1">
+          hiiiiiiiiiiiii, this is your trello
+        </Typography>
       </header>
       <body>
         <Cols />

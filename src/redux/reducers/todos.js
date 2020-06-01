@@ -1,60 +1,20 @@
+import { addTodo, removeTodo, editTodo, fetchTodo } from './helpers';
+
 export default function (state = [] ,action) {
   switch (action.type) {
-    case 'ADD_TODO': {
-      const { todoId, title, description } = action.payload;
-      const newState = [
-        ...state,
-        {
-          key: todoId,
-          title,
-          description,
-        }];
+    case 'ADD_TODO':
+      return addTodo(state, action);
 
-      localStorage.setItem('cardData', JSON.stringify(newState));
-      return newState;
-    }
+    case 'REMOVE_TODO': 
+      return removeTodo(state, action);
 
-    case 'REMOVE_TODO': {
-      const { todoId } = action.payload;
-      const newState = state.filter(item => item.key !== todoId);
+    case 'EDIT_TODO':
+      return editTodo(state, action);
 
-      localStorage.setItem('cardData', JSON.stringify(newState));
-      return newState;
-    }
-
-    case 'EDIT_TODO': {
-      const { todoId, title, description } = action.payload;
-      const itemIndex = state.findIndex(item => item.key === todoId);
-      const newState = [
-        ...state.slice(0, itemIndex),
-        { key: todoId, title, description },
-        ...state.slice(itemIndex)
-      ]
-
-      localStorage.setItem('cardData', JSON.stringify(newState));
-      return newState;
-    }
-
-    case 'FETCH_SUCCEEDED': {
-      const localCardDataBased = localStorage.getItem('cardData');
-
-      if (localCardDataBased) {
-        return JSON.parse(localCardDataBased);
-      }
-      return normalizeData(action.data);
-    }
+    case 'FETCH_SUCCEEDED':
+      return fetchTodo(state, action);
 
     default:
       return state;
   }
-}
-
-function normalizeData(data) {
-  return data.map(dataItem => {
-    return {
-      key: dataItem.id,
-      title: dataItem.title,
-      description: dataItem.description || ''
-    }
-  })
 }
