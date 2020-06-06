@@ -10,7 +10,7 @@ import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import ToastContext from '../../Context';
+import { ToastContext } from '../../Providers';
 import ColContext from '../Cols/ColContext';
 
 function EditableCard({ todoId, title, description, setIsEditableValue, colId }) {

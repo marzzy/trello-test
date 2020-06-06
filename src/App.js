@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import Typography from '@material-ui/core/Typography';
-import Toast from './Components/Toast';
 import Cols from './Components/Cols';
-import ToastContext from './Context';
+import ToastProvider from './Providers';
 
 function App() {
   const [msg, setMsg] = useState('');
@@ -14,19 +13,18 @@ function App() {
   }
 
   return (
-    <ToastContext.Provider value={{ msg, setMsgContext}}>
-      <header>
-        <Typography gutterBottom variant="h1" component="h1">
-          hiiiiiiiiiiiii, this is your trello
-        </Typography>
-      </header>
-      <body>
-        <Cols />
-        {msg &&
-          <Toast msg={msg} key={toastId} />
-        }
-      </body>
-    </ToastContext.Provider>
+    <ToastProvider init={{ msg, setMsgContext }} msg={msg} key={toastId}>
+      <main>
+        <header>
+          <Typography gutterBottom variant="h1" component="h1">
+            hiiiiiiiiiiiii, this is your trello
+          </Typography>
+        </header>
+        <div>
+          <Cols />
+        </div>
+      </main>
+    </ToastProvider>
   );
 }
 

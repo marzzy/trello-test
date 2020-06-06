@@ -7,7 +7,7 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import ToastContext from '../../Context';
+import { ToastContext } from '../../Providers';
 import ColContext from '../Cols/ColContext';
 
 function UneditableCard({ todoId, title, description, setIsEditableValue, colId }) {

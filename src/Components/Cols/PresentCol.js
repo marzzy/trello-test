@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import TodoCard from '../TodoCard';
 import { AddTodoAction } from '../../redux/actions';
-import ToastContext from '../../Context';
+import { ToastContext } from '../../Providers';
 import ColContext from './ColContext';
 
 function PresentCol({ colId, colName, cardsId }) {

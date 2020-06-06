@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import ToastContext from '../../Context';
+import { ToastContext } from '../../Providers';
 import ColContext from './ColContext';
 
 function NewCol() {
